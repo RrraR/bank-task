@@ -1,13 +1,13 @@
-﻿create table [bank-task].dbo.Cards
-(
-    CardID       int primary key identity,
-    Card_number  varchar(16) not null,
-    Secret_word  varchar(40) not null,
-    Card_balance money default (0) check (Card_balance >= 0),
-    Account_id   int         not null
-    constraint UQ_Number UNIQUE (Card_number),
-    constraint FK_Card_to_Account foreign key (Account_id) references Accounts (AccountID) on delete cascade
-);
+﻿-- create table [bank-task].dbo.Cards
+-- (
+--     CardID       int primary key identity,
+--     Card_number  varchar(16) not null,
+--     Secret_word  varchar(40) not null,
+--     Card_balance money default (0) check (Card_balance >= 0),
+--     Account_id   int         not null
+--         constraint UQ_Number UNIQUE (Card_number),
+--     constraint FK_Card_to_Account foreign key (Account_id) references Accounts (AccountID) on delete cascade
+-- );
 
 insert into [bank-task].dbo.Cards(Card_number, Secret_word, Card_balance, Account_id)
 values ('0832091096406677',

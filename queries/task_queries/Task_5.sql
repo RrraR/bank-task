@@ -1,22 +1,17 @@
-﻿CREATE PROCEDURE AddTenDollars @status nvarchar(8)
+﻿CREATE PROCEDURE AddTenDollars @status int
 AS
 begin
     begin try
-        if @status <= 0 or @status > (select max(StatusID) from [bank-task].dbo.Social_Status) or @status is null
+        IF @status NOT IN (SELECT StatusID FROM Social_Statuses) OR 
+        @status NOT IN (SELECT Status_id FROM Clients)
             throw 51000, 'Error, social status code is invalid', 1;
-        select StatusID, Status_name
-        from [bank-task].dbo.Social_Status
-        where (IsNumeric(@status + '0e0') = 1)
-          And StatusID = (select @status)
-        update [bank-task].dbo.Accounts
-        set Balance = Balance + 10
-        where Accounts.AccountID = any (SELECT AccountID
-                                        from [bank-task].dbo.Social_Status,
-                                             [bank-task].dbo.Clients,
-                                             [bank-task].dbo.Accounts
-                                        where Social_status.StatusID = @status
-                                          and Social_status.StatusID = Clients.Status_id
-                                          and Accounts.Client_id = Clients.ClientID)
+
+        UPDATE [bank-task].dbo.Accounts
+        SET Balance = Balance + 10
+        FROM [bank-task].dbo.Accounts
+                 INNER JOIN Clients C on C.ClientID = Accounts.Client_id
+        WHERE C.Status_id = @status
+
     end try
     begin catch
         throw
@@ -24,4 +19,4 @@ begin
 end
 
 
-exec AddTenDollars @status = '2'
+    exec AddTenDollars @status = 5.2

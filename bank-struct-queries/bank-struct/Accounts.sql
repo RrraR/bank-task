@@ -1,10 +1,10 @@
-﻿create table [bank-task].dbo.Accounts
-(
-    AccountID int primary key identity,
-    Client_id int not null,
-    Balance   money default (0) check (Balance >= 0),
-    constraint FK_Account_to_Client foreign key (Client_id) references Clients (ClientID) on delete cascade
-);
+﻿-- create table [bank-task].dbo.Accounts
+-- (
+--     AccountID int primary key identity,
+--     Client_id int not null,
+--     Balance   money default (0) check (Balance >= 0),
+--     constraint FK_Account_to_Client foreign key (Client_id) references Clients (ClientID) on delete cascade
+-- );
 
 insert into [bank-task].dbo.Accounts(Client_id, Balance)
 values ((select ClientID from [bank-task].dbo.Clients where FirstName = 'Alex' And Surname = 'Ivanov'),
@@ -15,7 +15,7 @@ values ((select ClientID from [bank-task].dbo.Clients where FirstName = 'Alex' A
         210.3),
        ((select ClientID from [bank-task].dbo.Clients where FirstName = 'Ivona' And Surname = 'Marek'),
         122.2),
-       ((select ClientID from [bank-task].dbo.Clients where FirstName = 'Alecsandra' And Surname = 'Lina'),
+       ((select ClientID from [bank-task].dbo.Clients where FirstName = 'Aleksandra' And Surname = 'Lina'),
         3210.14),
        ((select ClientID from [bank-task].dbo.Clients where FirstName = 'Valeria' And Surname = 'Pivon'),
         96.52),

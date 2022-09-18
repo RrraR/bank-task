@@ -24,4 +24,4 @@ BEGIN
     COMMIT
 END
 
-exec AddMoneyToCard @cardNumber = '0832091096406677', @sum = 5
+    exec AddMoneyToCard @cardNumber = '0832091096406677', @sum = 5
